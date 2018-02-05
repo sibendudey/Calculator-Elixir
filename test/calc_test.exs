@@ -21,4 +21,8 @@ defmodule CalcTest do
   test "1 + 3 * 3 + 1" do
     assert Calc.eval("1 + 3 * 3 - 1") == 9
   end
+
+  test "0 + 0 - 1  + ( 45 * 1000)" do
+    assert Calc.eval("0 + 0 - 1  + ( 45 * 1000)") == 44999
+  end
 end
