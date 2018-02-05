@@ -88,7 +88,7 @@ defmodule Calc do
 
   end
 
-  def evaluate(operatorStack, operandStack, operation)  do
+  defp evaluate(operatorStack, operandStack, operation)  do
     lastOperator = List.first(operatorStack)
 
     if (length(operatorStack) >= 1 && precedence?(operation, lastOperator)) do
@@ -106,7 +106,7 @@ defmodule Calc do
 
   end
 
-  def performOperation(op1, op2, operator) do
+  defp performOperation(op1, op2, operator) do
     cond do
       operator == "+" ->
         Integer.to_string(String.to_integer(op1) + String.to_integer(op2))
@@ -121,7 +121,7 @@ defmodule Calc do
   end
 
 
-  def precedence?(operator1, operator2) do
+  defp precedence?(operator1, operator2) do
 
     cond do
       operator2 == "(" || operator2 == ")" ->
