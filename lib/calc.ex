@@ -35,6 +35,7 @@ defmodule Calc do
       fn (x, acc) ->
         {operandStack, operatorStack} = acc
         cond do
+
           Regex.match?(~r/[0-9]+/, x) ->
             {List.insert_at(operandStack, 0, x), operatorStack}
 
@@ -69,25 +70,22 @@ defmodule Calc do
       end
     )
 
-    String.to_integer(
-      List.first(
-        List.foldl(
-          operatorStack,
-          operandStack,
-          fn (operator, operandStack) ->
-            first = List.first(operandStack)
-            operandStack = List.delete_at(operandStack, 0)
-            second = List.first(operandStack)
-            operandStack = List.delete_at(operandStack, 0)
-            List.insert_at(operandStack, 0, performOperation(first, second, operator))
-          end
-        )
-      )
-    )
 
-    #    catch
-    #      "Invalid input / Runtime Error"
-    #    end
+    List.foldl(
+      operatorStack,
+      operandStack,
+      fn (operator, operandStack) ->
+        first = List.first(operandStack)
+        operandStack = List.delete_at(operandStack, 0)
+        second = List.first(operandStack)
+        operandStack = List.delete_at(operandStack, 0)
+        List.insert_at(operandStack, 0, performOperation(first, second, operator))
+      end
+    )
+    |> List.first
+    |> String.to_integer
+
+
   end
 
   def evaluate(operatorStack, operandStack, operation)  do
